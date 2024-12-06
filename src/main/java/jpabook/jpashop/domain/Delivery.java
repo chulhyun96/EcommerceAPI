@@ -1,9 +1,6 @@
 package jpabook.jpashop.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -21,6 +18,7 @@ public class Delivery {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "delivery")
     private Order order;
 
+    @Setter
     @Embedded
     private Address address;
 
@@ -30,4 +28,5 @@ public class Delivery {
     public void assignOrder(Order order) {
         this.order = order;
     }
+
 }

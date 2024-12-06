@@ -1,10 +1,7 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.item.Item;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
 @Entity
 public class OrderItem {
     @Id
@@ -29,8 +27,29 @@ public class OrderItem {
     private int orderPrice;
     private int count; // 주문 수량
 
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.removeStockQuantity(count);
+        return orderItem;
+    }
     // 편의 메서드 setter 제공
     public void assignOrder(Order order) {
         this.order = order;
+    }
+
+    //비즈니스 로직
+    public void cancel() {
+        getItem().addStockQuantity(count);
+    }
+
+    /**
+     * 주문 상품 전체 가격 조회
+     */
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
     }
 }
