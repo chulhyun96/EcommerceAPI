@@ -1,4 +1,4 @@
-package jpabook.jpashop.domain.service;
+package jpabook.jpashop.service;
 
 
 import jpabook.jpashop.domain.Member;
@@ -31,7 +31,8 @@ public class MemberServiceTest {
     @DisplayName("회원 가입 - 성공")
     public void success_member_join() {
         //given
-        Member memberA = new Member("memberA");
+        Member memberA = new Member();
+        memberA.setName("MemberA");
         //when
         Long savedId = memberService.join(memberA);
         //then
@@ -42,8 +43,10 @@ public class MemberServiceTest {
     @DisplayName("회원 가입 실패 - 회원 아이디 중복")
     public void fail_member_join() {
         //given
-        Member member1 = new Member("member");
-        Member member2 = new Member("member");
+        Member member1 = new Member();
+        member1.setName("member");
+        Member member2 = new Member();
+        member2.setName("member");
 
         //when
         memberService.join(member1);

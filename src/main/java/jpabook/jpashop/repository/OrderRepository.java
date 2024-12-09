@@ -18,9 +18,19 @@ public class OrderRepository {
 
     public Order findById(Long id) {
         return em.find(Order.class, id);
+    } 
+
+    public List<Order> findAll(OrderSearch orderSearch) {
+        // 동적 쿼리 해결 방법
+        // -> JPQL을 생자로 작성
+        // -> Criteria 작성
+        // -> QueryDSL
+        return em.createQuery("SELECT o FROM Order o JOIN o.member m" +
+                        " Where o.status = :status" +
+                        " And m.name like :name", Order.class)
+                .setParameter("status", orderSearch.getOrderStatus())
+                .setParameter("name", orderSearch.getMemberName())
+                .setMaxResults(1000)
+                .getResultList();
     }
-
-    /*public List<Order> findAll(OrderSearch orderSearch) {
-
-    }*/
 }

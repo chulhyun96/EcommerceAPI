@@ -21,7 +21,7 @@ public class MemberRepository {
     }
 
     public List<Member> findAll() {
-        return em.createQuery("select m from Member m", Member.class)
+        return em.createQuery("select m from Member m LEFT JOIN FETCH m.orders ", Member.class)
                 .getResultList();
     }
 
