@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Service
@@ -37,5 +38,11 @@ public class MemberService {
     //회원 단건 조회
     public Member getMemberById(Long id) {
         return memberRepository.findById(id);
+    }
+
+    @Transactional
+    public void update(Long id,  String name) {
+        Member findMember = memberRepository.findById(id);
+        findMember.setName(name);
     }
 }

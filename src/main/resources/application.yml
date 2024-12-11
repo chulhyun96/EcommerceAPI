@@ -6,15 +6,13 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update # 엔티티와 데이터베이스 테이블을 동기화
+      ddl-auto: create # 엔티티와 데이터베이스 테이블을 동기화
     properties:
-      hibernate:
-        id:
-          new_generator_mapping: true
-        show_sql: true # SQL 로그 출력
-        format_sql: true # SQL 로그를 보기 좋게 포맷
-        use_sql_comments: true # SQL 쿼리 주석 표시
+        hibernate:
+          format_sql: true # SQL 로그를 보기 좋게 포맷
+          default_batch_fetch_size: 100
     open-in-view: false # 성능 최적화를 위해 Open Session in View 비활성화
+
   h2:
     console:
       path: /h2
