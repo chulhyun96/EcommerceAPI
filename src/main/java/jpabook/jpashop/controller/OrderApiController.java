@@ -46,6 +46,7 @@ public class OrderApiController {
 
         return ResponseEntity.ok(collect);
     }
+
     @GetMapping("/api/v3/orders")
     public ResponseEntity<?> v3() {
         List<Order> orders = orderRepository.findAllWithItem();
@@ -57,7 +58,6 @@ public class OrderApiController {
     }
 
 
-    @Transactional(readOnly = true)
     @GetMapping("/api/v3.1/orders")
     public ResponseEntity<?> v3_1_page() {
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
